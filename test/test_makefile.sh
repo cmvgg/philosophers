@@ -18,3 +18,5 @@ for target in all clean fclean re; do
         echo "[FAIL] make $target falló" >> logs/test_makefile.log
     fi
 done
+
+echo "Pruebas completadas. Resultados en logs/test_makefile.log"

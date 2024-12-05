@@ -29,9 +29,15 @@ $(DST_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 run_test: all
-		chmod +x test/test_makefile.sh
-		./test/test_makefile.sh 
-		
+		@chmod +x test/test_makefile.sh
+		#@./test/test_makefile.sh 
+		@chmod +x test/test_arguments.sh
+		#@./test/test_arguments.sh 
+		@chmod +x test/test_concurrency.sh
+		#@./test/test_concurrency.sh
+		@chmod +x test/test_resources.sh
+		@./test/test_resources.sh
+
 clean:
 	$(RM) $(OBJS) $(DEPS)
 
@@ -39,11 +45,9 @@ fclean:		clean
 				@$(RM) $(NAME) $(OBJS)
 
 fclean2:	fclean
-				rm -f outfile_shell
-				rm -f in.txt
-				rm -f outfile_pipex
 				rm -rf logs
 				rm -rf exits
+				rm -rf valgrind_reports
 
 re:
 	$(MAKE) fclean
