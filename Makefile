@@ -30,11 +30,11 @@ $(DST_DIR)/%.o: $(SRC_DIR)/%.c
 
 run_test: all
 		@chmod +x test/test_makefile.sh
-		#@./test/test_makefile.sh 
+		@./test/test_makefile.sh 
 		@chmod +x test/test_arguments.sh
-		#@./test/test_arguments.sh 
+		@./test/test_arguments.sh 
 		@chmod +x test/test_concurrency.sh
-		#@./test/test_concurrency.sh
+		@./test/test_concurrency.sh
 		@chmod +x test/test_resources.sh
 		@./test/test_resources.sh
 
