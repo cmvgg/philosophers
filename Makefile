@@ -42,8 +42,6 @@ run_test: all
 		@chmod +x test/test_resources.sh
 		@./test/test_resources.sh
 
-
-
 fclean:		clean
 				@$(RM) $(NAME)
 				@rm -fr obj
