@@ -15,7 +15,7 @@ SRCS        := $(SRCS:%=$(SRC_DIR)/%)
 OBJS        := $(SRCS:$(SRC_DIR)/%.c=$(DST_DIR)/%.o)
 
 CC          := cc
-CFLAGS      := -Wall -Wextra -Werror
+CFLAGS      := -Wall -Wextra -Werror -Wpedantic
 LDLIBS      := -lpthread
 
 RM          := rm -f
@@ -25,12 +25,16 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(LDLIBS) -o $(NAME)
 
-$(DST_DIR)/%.o: $(SRC_DIR)/%.c
+$(DST_DIR):
+	mkdir -p $(DST_DIR)
+
+$(DST_DIR)/%.o: $(SRC_DIR)/%.c | $(DST_DIR)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 run_test: all
-		@chmod +x test/test_makefile.sh
-		@./test/test_makefile.sh 
+		@rm -fr logs
+		@rm -fr exits
+		@rm -fr valgrind_reports
 		@chmod +x test/test_arguments.sh
 		@./test/test_arguments.sh 
 		@chmod +x test/test_concurrency.sh
@@ -38,17 +42,17 @@ run_test: all
 		@chmod +x test/test_resources.sh
 		@./test/test_resources.sh
 
-clean:
-	$(RM) $(OBJS) $(DEPS)
+
 
 fclean:		clean
-				@$(RM) $(NAME) $(OBJS)
+				@$(RM) $(NAME)
+				@rm -fr obj
 
 fclean2:	fclean
-				rm -rf logs
-				rm -rf exits
-				rm -rf valgrind_reports
-
+				rm -fr logs
+				rm -fr exits
+				rm -fr valgrind_reports
+				
 re:
 	$(MAKE) fclean
 	$(MAKE) all
